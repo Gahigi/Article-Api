@@ -1,1 +1,2 @@
-# My sexy project
+# Django Api for Article Web Page
+# It contains CRUD
