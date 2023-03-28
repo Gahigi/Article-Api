@@ -10,6 +10,9 @@ from rest_framework import status
 
 class ViewAllArticle(APIView):
     def get(self, request):
+        print("---------------------------------")
+        print(self.__dir__())
+        
         articles = Article.objects.all()
         serializers_data = articleSerializer(articles, many= True)
         return Response(serializers_data.data, status= status.HTTP_200_OK)
