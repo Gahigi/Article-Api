@@ -5,10 +5,13 @@ from rest_framework.response import Response
 from .models import *
 from .serializer import *
 from rest_framework import status
-
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from rest_framework.decorators import permission_classes
 # Create your views here.
 
 class ViewAllArticle(APIView):
+    
+    permission_classes = [IsAdminUser]
     def get(self, request):
         print("---------------------------------")
         print(self.__dir__())
@@ -24,10 +27,12 @@ class ViewAllArticle(APIView):
         return Response(serializers_data.errors, status= status.HTTP_400_BAD_REQUEST)
     
 class ViewArticle(APIView):
+    permission_classes = [IsAdminUser]
     def get(self, request, id):
         article = Article.objects.get(id = id)
         serializers_data = articleSerializer(article)
         return Response(serializers_data.data, status= status.HTTP_200_OK)
+    
     def put(self, request, id):
         article = Article.objects.get(id = id)
         serializers_data = articleSerializer(article, data = request.data)
